@@ -1,0 +1,78 @@
+:root {
+  --bg-color: #111;
+  --card-border: #fff;
+  --hover-scale: 1.05;
+  --light-bg: #f9f9f9;
+  --light-border: #222;
+}
+
+/* Auto-detect user preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: var(--light-bg);
+    --card-border: var(--light-border);
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.scroll-container {
+  width: 100vw;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.model-row-wrapper {
+  display: flex;
+  animation: scroll 60s linear infinite;
+}
+
+.scroll-container:hover .model-row-wrapper {
+  animation-play-state: paused;
+}
+
+.model-row {
+  display: flex;
+  gap: 4rem;
+  padding: 2rem;
+  justify-content: flex-start; /* Align items to the start for animation */
+  align-items: center;
+}
+
+model-viewer {
+  width: clamp(250px, 30vw, 400px);
+  height: clamp(300px, 40vh, 500px);
+  border: 2px solid var(--card-border);
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: #000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover animation */
+model-viewer:hover {
+  transform: scale(var(--hover-scale));
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.15);
+}
