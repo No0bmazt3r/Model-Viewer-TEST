@@ -1,75 +1,75 @@
-# React + TypeScript + Vite
+# 3D Model Viewer Carousel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a responsive, auto-scrolling 3D model viewer carousel built with React, Vite, and TypeScript. It showcases a seamless, infinite loop of 3D models that pauses on hover, allowing users to interact with each model individually.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Infinite Auto-Scroll**: Models scroll continuously in a seamless loop, creating an engaging carousel effect.
+- **Pause on Hover**: The animation pauses when you hover over the carousel, allowing you to interact with the 3D models.
+- **Responsive Design**: The layout adapts to different screen sizes, ensuring a great experience on any device.
+- **Dark/Light Mode**: The application automatically adapts to your system's color scheme.
+- **Easy to Customize**: You can easily change the 3D models, adjust the animation speed, and resize the model viewers.
 
-## React Compiler
+## How It Works
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+The application uses the `<model-viewer>` web component to display 3D models. The core logic is built with React and TypeScript, and the project is set up with Vite for a fast development experience.
 
-Note: This will impact Vite dev & build performances.
+The seamless infinite scroll is achieved using CSS animations. The list of models is duplicated in the `App.tsx` component, and a CSS keyframe animation scrolls the container horizontally. When the animation completes a cycle, it seamlessly jumps back to the beginning, creating the illusion of an infinite loop.
 
-## Expanding the ESLint configuration
+The main files to look at are:
+- `src/App.tsx`: The main React component where the model list is defined and rendered.
+- `src/index.css`: The stylesheet that contains all the styling, including the scrolling animation and the responsive layout.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+To run this project locally, follow these steps:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1.  **Clone the repository** (or download the files).
+2.  **Install the dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Start the development server**:
+    ```bash
+    npm run dev
+    ```
+This will start the application on a local development server. You can view it in your browser at the URL provided in the terminal (usually `http://localhost:5173`).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## How to Play With It
+
+You can easily customize the application to your liking. Here are a few examples:
+
+### Changing the 3D Models
+
+To change the 3D models in the carousel, open the `src/App.tsx` file and modify the `models` array. You can add, remove, or replace the URLs with links to your own `.glb` or `.gltf` models.
+
+```javascript
+const models = [
+  'https://your-model-url.glb',
+  'https://another-model.glb',
+  // Add as many as you like
+];
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Adjusting the Animation Speed
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+To change the speed of the auto-scrolling animation, open the `src/index.css` file and find the `.model-row-wrapper` class. You can change the `animation` duration (the first value, in seconds) to make the scrolling faster or slower.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```css
+.model-row-wrapper {
+  display: flex;
+  animation: scroll 60s linear infinite; /* Change 60s to a different value */
+}
+```
+
+### Resizing the Model Viewers
+
+To change the size of the 3D model viewers, open the `src/index.css` file and find the `model-viewer` selector. You can adjust the `width` and `height` properties. The `clamp()` function is used to create a responsive size, so you can change the minimum, preferred, and maximum values.
+
+```css
+model-viewer {
+  width: clamp(250px, 30vw, 400px);  /* Adjust these values */
+  height: clamp(300px, 40vh, 500px); /* Adjust these values */
+  /* ... */
+}
 ```
